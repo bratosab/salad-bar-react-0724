@@ -1,16 +1,16 @@
 import { List, ListItemButton } from "@mui/material";
-import { useEffect, useState } from "react";
-import { Topping } from "../models/Topping.model";
-import { getToppings } from "../services/saladService";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadToppings } from "../store/saladSlice";
+import { AppDispatch, RootState } from "../store/store";
 
 export function SaladOrder() {
-  const [toppings, setToppings] = useState<Topping[]>([]);
+  const toppings = useSelector((state: RootState) => state.salad.toppings)
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    getToppings().then((toppings) => {
-      setToppings(toppings);
-    });
-  }, []);
+    dispatch(loadToppings())
+  }, [dispatch]);
 
   return (
     <>
