@@ -1,0 +1,5 @@
+.toppings-lists {
+    display: flex;
+    flex-direction: row;
+    padding: 4px;
+}

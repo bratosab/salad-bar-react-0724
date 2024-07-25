@@ -1,6 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Topping } from "../models/Topping.model";
 import { getToppings } from "../services/saladService";
+import { RootState } from "./store";
 
 export interface SaladState {
   toppings: Topping[];
@@ -48,3 +49,20 @@ const saladSlice = createSlice({
 
 export const saladReducer = saladSlice.reducer;
 export const { selectTopping } = saladSlice.actions;
+
+export const selectTotalPrice = (state: RootState) => {
+  console.log("total price calculated")
+  return state.salad.chosenToppings.reduce((sum, topping) => {
+    return sum + topping.price;
+  }, 0);
+};
+
+export const selectTotalPriceMemo = createSelector(
+  (state: RootState) => state.salad.chosenToppings,
+  (chosenToppings => {
+    console.log("total price memo calculated")
+    return chosenToppings.reduce((sum, topping) => {
+      return sum + topping.price;
+    }, 0);
+  })
+)
