@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Topping } from "../models/Topping.model";
 import { getToppings } from "../services/saladService";
 
@@ -25,7 +25,11 @@ export const loadToppings = createAsyncThunk("salad/loadToppings", async () => {
 const saladSlice = createSlice({
   initialState,
   name: "salad",
-  reducers: {},
+  reducers: {
+    selectTopping: (state, action: PayloadAction<{ topping: Topping }>) => {
+      state.chosenToppings.push(action.payload.topping);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loadToppings.pending, (state) => {
@@ -43,3 +47,4 @@ const saladSlice = createSlice({
 });
 
 export const saladReducer = saladSlice.reducer;
+export const { selectTopping } = saladSlice.actions;
