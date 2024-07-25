@@ -14,7 +14,7 @@ export enum Statut {
   Done = "Done",
 }
 
-const initialState: MainState = {
+export const initialState: MainState = {
   name: "",
   orderId: 0,
   statut: Statut.New,

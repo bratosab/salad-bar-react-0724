@@ -11,7 +11,7 @@ export interface SaladState {
   loading: boolean;
 }
 
-const initialState: SaladState = {
+export const initialState: SaladState = {
   toppings: [],
   chosenToppings: [],
   loading: false,
